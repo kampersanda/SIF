@@ -196,6 +196,7 @@ def sentences2idx(sentences, words):
     :param words: a dictionary, words['str'] is the indices of the word 'str'
     :return: x1, m1. x1[i, :] is the word indices in sentence i, m1[i,:] is the mask for sentence i (0 means no word at the location)
     """
+    seq1 = []
     for i in sentences:
         seq1.append(getSeq(i,words))
     x1,m1 = prepare_data(seq1)
@@ -285,13 +286,13 @@ def getWordWeight(weightfile, a=1e-3):
                 N += float(i[1])
             else:
                 print(i)
-    for key, value in word2weight.iteritems():
+    for key, value in word2weight.items():
         word2weight[key] = a / (a + value/N)
     return word2weight
 
 def getWeight(words, word2weight):
     weight4ind = {}
-    for word, ind in words.iteritems():
+    for word, ind in words.items():
         if word in word2weight:
             weight4ind[ind] = word2weight[word]
         else:
